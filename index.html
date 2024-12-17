@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excuse Challenge Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+
+        h1 {
+            color: #008b8b;
+        }
+
+        #task {
+            margin: 20px;
+            font-size: 20px;
+        }
+
+        textarea {
+            width: 80%;
+            max-width: 500px;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #008b8b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #00bfff;
+        }
+
+        #response {
+            margin: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        #score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+    <h1>Excuse Challenge Game</h1>
+    <p>AI gives you a task. Type your excuse and see if it's good enough!</p>
+
+    <div id="task">The AI says: "<span id="aiTask"></span>"</div>
+
+    <textarea id="excuseInput" placeholder="Type your excuse here..."></textarea><br>
+    <button onclick="submitExcuse()">Submit Excuse</button>
+
+    <div id="response"></div>
+    <div id="score"></div>
+
+    <script>
+        // List of tasks the AI can assign
+        const tasks = [
+            "Finish your homework",
+            "Attend the group project meeting",
+            "Submit the essay by 5 PM",
+            "Join the mandatory team Zoom call",
+            "Clean your room before dinner",
+            "Write the presentation slides for class"
+        ];
+
+        // Pick a random task
+        const aiTask = tasks[Math.floor(Math.random() * tasks.length)];
+        document.getElementById("aiTask").innerText = aiTask;
+
+        // Scoring system keywords
+        const humorKeywords = ["bird", "pigeon", "drone", "government", "surveillance"];
+        const realisticKeywords = ["family", "emergency", "internet", "car", "dog"];
+
+        function submitExcuse() {
+            const excuse = document.getElementById("excuseInput").value.toLowerCase();
+            let score = 0;
+
+            // Check for humor keywords
+            humorKeywords.forEach(keyword => {
+                if (excuse.includes(keyword)) score += 10;
+            });
+
+            // Check for realistic keywords
+            realisticKeywords.forEach(keyword => {
+                if (excuse.includes(keyword)) score += 5;
+            });
+
+            // Base scoring for effort
+            if (excuse.length > 30) {
+                score += 5; // bonus for longer excuses
+            } else {
+                score -= 5; // penalty for short excuses
+            }
+
+            // AI feedback based on score
+            let feedback;
+            if (score >= 20) {
+                feedback = "The AI says: 'Hmm, that’s oddly specific... but I’ll allow it.'";
+            } else if (score >= 10) {
+                feedback = "The AI says: 'I don’t quite believe you, but it’s funny.'";
+            } else {
+                feedback = "The AI says: 'That's not a good excuse. Try harder next time!'";
+            }
+
+            // Show feedback and score
+            document.getElementById("response").innerText = feedback;
+            document.getElementById("score").innerText = `Excuse Score: ${score}`;
+        }
+    </script>
+</body>
+</html>
