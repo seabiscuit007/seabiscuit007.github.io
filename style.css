@@ -1,0 +1,94 @@
+/* General styling */
+body {
+    font-family: 'Comic Sans MS', sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #00bfff;
+    text-align: center;
+    padding: 20px;
+    color: white;
+}
+
+nav {
+    background-color: #008b8b;
+    text-align: center;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #008b8b;
+}
+
+h3 {
+    color: #333;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+img {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px 0;
+}
+
+footer {
+    background-color: #00bfff;
+    text-align: center;
+    padding: 10px;
+    color: white;
+}
+
+/* Button for random excuse */
+button {
+    background-color: #008b8b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #00bfff;
+}
+
+/* Excuse output */
+#excuse-output {
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+}
