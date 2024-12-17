@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bird Surveillance Avoider</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1516747308446-6efc02e37f8c') center/cover;
+            overflow: hidden;
+        }
+
+        #player {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('https://img.icons8.com/emoji/48/man-emoji.png') no-repeat center/contain;
+            z-index: 10;
+        }
+
+        .bird {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('https://img.icons8.com/color/48/bird.png') no-repeat center/contain;
+        }
+
+        #scoreboard {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            z-index: 20;
+        }
+
+        #gameOver {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 30px;
+            font-size: 30px;
+            border-radius: 10px;
+            z-index: 30;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="scoreboard">Survival Time: <span id="score">0</span> seconds</div>
+        <div id="player"></div>
+        <div id="gameOver">Game Over!<br>Your Survival Time: <span id="finalScore"></span> seconds</div>
+    </div>
+
+    <script>
+        const player = document.getElementById("player");
+        const gameContainer = document.getElementById("gameContainer");
+        const scoreDisplay = document.getElementById("score");
+        const gameOverDisplay = document.getElementById("gameOver");
+        const finalScoreDisplay = document.getElementById("finalScore");
+
+        let playerX = window.innerWidth / 2;
+        let playerY = window.innerHeight / 2;
+        let score = 0;
+        let birdSpawnInterval;
+        let gameRunning = true;
+
+        // Position player in the center initially
+        player.style.left = `${playerX}px`;
+        player.style.top = `${playerY}px`;
+
+        // Move player with mouse
+        document.addEventListener("mousemove", (e) => {
+            if (!gameRunning) return;
+            playerX = e.clientX - player.offsetWidth / 2;
+            playerY = e.clientY - player.offsetHeight / 2;
+
+            // Keep player within bounds
+            playerX = Math.max(0, Math.min(window.innerWidth - player.offsetWidth, playerX));
+            playerY = Math.max(0, Math.min(window.innerHeight - player.offsetHeight, playerY));
+
+            player.style.left = `${playerX}px`;
+            player.style.top = `${playerY}px`;
+        });
+
+        // Create bird drones
+        function spawnBird() {
+            const bird = document.createElement("div");
+            bird.classList.add("bird");
+
+            // Randomize starting position (edges of the screen)
+            const side = Math.floor(Math.random() * 4); // 0 = top, 1 = right, 2 = bottom, 3 = left
+            let birdX, birdY;
+
+            switch (side) {
+                case 0: // Top
+                    birdX = Math.random() * window.innerWidth;
+                    birdY = -50;
+                    break;
+                case 1: // Right
+                    birdX = window.innerWidth + 50;
+                    birdY = Math.random() * window.innerHeight;
+                    break;
+                case 2: // Bottom
+                    birdX = Math.random() * window.innerWidth;
+                    birdY = window.innerHeight + 50;
+                    break;
+                case 3: // Left
+                    birdX = -50;
+                    birdY = Math.random() * window.innerHeight;
+                    break;
+            }
+
+            bird.style.left = `${birdX}px`;
+            bird.style.top = `${birdY}px`;
+            gameContainer.appendChild(bird);
+
+            // Animate the bird toward the player
+            const birdInterval = setInterval(() => {
+                const dx = playerX - birdX;
+                const dy = playerY - birdY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                const speed = 3; // Bird speed
+                birdX += (dx / distance) * speed;
+                birdY += (dy / distance) * speed;
+
+                bird.style.left = `${birdX}px`;
+                bird.style.top = `${birdY}px`;
+
+                // Check for collision
+                if (
+                    birdX < playerX + player.offsetWidth &&
+                    birdX + 40 > playerX &&
+                    birdY < playerY + player.offsetHeight &&
+                    birdY + 40 > playerY
+                ) {
+                    endGame();
+                    clearInterval(birdInterval);
+                }
+            }, 20);
+        }
+
+        // Update score
+        function updateScore() {
+            if (!gameRunning) return;
+            score++;
+            scoreDisplay.textContent = (score / 10).toFixed(1);
+        }
+
+        // End the game
+        function endGame() {
+            gameRunning = false;
+            clearInterval(birdSpawnInterval);
+            gameOverDisplay.style.display = "block";
+            finalScoreDisplay.textContent = (score / 10).toFixed(1);
+        }
+
+        // Start the game
+        function startGame() {
+            birdSpawnInterval = setInterval(spawnBird, 2000); // Spawn a bird every 2 seconds
+            setInterval(updateScore, 100); // Update score every 0.1 second
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
