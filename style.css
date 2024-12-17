@@ -98,3 +98,25 @@ button:hover {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
 }
+
+/* Drone Tech Section */
+.drone-tech {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f7f7f7;  /* Same as other sections */
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Same shadow effect */
+}
+
+/* Title inside Drone Tech */
+.drone-tech h2 {
+    color: #008b8b;  /* Match the color of other h2 titles */
+    border-bottom: 2px solid #00bfff;  /* Same style as other section titles */
+    padding-bottom: 10px;
+}
+
+/* Subtitles in Drone Tech */
+.drone-tech h3 {
+    color: #555;
+    margin-top: 20px;
+}
