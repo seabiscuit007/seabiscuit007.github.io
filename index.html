@@ -3,126 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excuse Challenge Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f8ff;
-            color: #333;
-        }
-
-        h1 {
-            color: #008b8b;
-        }
-
-        #task {
-            margin: 20px;
-            font-size: 20px;
-        }
-
-        textarea {
-            width: 80%;
-            max-width: 500px;
-            height: 100px;
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        button {
-            background-color: #008b8b;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #00bfff;
-        }
-
-        #response {
-            margin: 20px;
-            font-size: 18px;
-            color: #333;
-        }
-
-        #score {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff4500;
-        }
-    </style>
+    <title>Birds Are Government Drones</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Excuse Challenge Game</h1>
-    <p>AI gives you a task. Type your excuse and see if it's good enough!</p>
+    <header>
+        <h1>Welcome to the Official Site: Birds Are Government Drones</h1>
+    </header>
 
-    <div id="task">The AI says: "<span id="aiTask"></span>"</div>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#proof">Proof</a></li>
+            <li><a href="#drone-tech">Drone Technology</a></li>
+            <li><a href="#evidence">Evidence</a></li>
+            <li><a href="#excuse-generator">Random Excuse Generator</a></li>
+        </ul>
+    </nav>
 
-    <textarea id="excuseInput" placeholder="Type your excuse here..."></textarea><br>
-    <button onclick="submitExcuse()">Submit Excuse</button>
+    <section id="home">
+        <h2>Introduction</h2>
+        <p>Have you ever wondered why birds seem to be everywhere? The truth is, they're not real... they're surveillance drones sent by the government to monitor us. This website will prove it, one feather at a time.</p>
+        <h3>Why Birds Are Watching You</h3>
+        <ul>
+            <li>They have a bird's eye view.</li>
+            <li>They don’t eat—they just recharge.</li>
+            <li>Why does a bird sit on a power line? To access their Wi-Fi network.</li>
+        </ul>
+        <img src="bird-drone-image.jpg" alt="A bird with a drone control panel under its wings">
+    </section>
 
-    <div id="response"></div>
-    <div id="score"></div>
+    <section id="proof">
+        <h2>The Proof</h2>
+        <p>We analyzed 10,000 bird sightings and concluded that 87% of them were government agents in disguise. The other 13% were pigeons pretending to be government agents.</p>
+        <div id="chart"></div> <!-- Embed Tableau graph here -->
+    </section>
 
-    <script>
-        // List of tasks the AI can assign
-        const tasks = [
-            "Finish your homework",
-            "Attend the group project meeting",
-            "Submit the essay by 5 PM",
-            "Join the mandatory team Zoom call",
-            "Clean your room before dinner",
-            "Write the presentation slides for class"
-        ];
+    <section id="drone-tech">
+        <h2>Drone Technology</h2>
+        <p><strong>Model:</strong> Pigeon 3000</p>
+        <p><strong>Battery Life:</strong> 45 minutes (unless the wind blows too hard)</p>
+        <p><strong>In-flight Wi-Fi Signal Strength:</strong> 2/10 (But they’re working on it)</p>
+    </section>
 
-        // Pick a random task
-        const aiTask = tasks[Math.floor(Math.random() * tasks.length)];
-        document.getElementById("aiTask").innerText = aiTask;
+    <section id="evidence">
+        <h2>Evidence from the Field</h2>
+        <img src="bird-drone-evidence.jpg" alt="Surveillance bird caught in action">
+        <p>Caught Red-Tailed—No One Is Safe!</p>
+        <iframe src="https://www.youtube.com/embed/somefunnyvideo" frameborder="0" allowfullscreen></iframe>
+    </section>
 
-        // Scoring system keywords
-        const humorKeywords = ["bird", "pigeon", "drone", "government", "surveillance"];
-        const realisticKeywords = ["family", "emergency", "internet", "car", "dog"];
+    <section id="excuse-generator">
+        <h2>Random Excuse Generator</h2>
+        <button onclick="generateExcuse()">Generate Excuse</button>
+        <p id="excuse-output"></p>
+    </section>
 
-        function submitExcuse() {
-            const excuse = document.getElementById("excuseInput").value.toLowerCase();
-            let score = 0;
+    <footer>
+        <p>Created by the Ministry of Bird Surveillance. All rights reserved.</p>
+    </footer>
 
-            // Check for humor keywords
-            humorKeywords.forEach(keyword => {
-                if (excuse.includes(keyword)) score += 10;
-            });
-
-            // Check for realistic keywords
-            realisticKeywords.forEach(keyword => {
-                if (excuse.includes(keyword)) score += 5;
-            });
-
-            // Base scoring for effort
-            if (excuse.length > 30) {
-                score += 5; // bonus for longer excuses
-            } else {
-                score -= 5; // penalty for short excuses
-            }
-
-            // AI feedback based on score
-            let feedback;
-            if (score >= 20) {
-                feedback = "The AI says: 'Hmm, that’s oddly specific... but I’ll allow it.'";
-            } else if (score >= 10) {
-                feedback = "The AI says: 'I don’t quite believe you, but it’s funny.'";
-            } else {
-                feedback = "The AI says: 'That's not a good excuse. Try harder next time!'";
-            }
-
-            // Show feedback and score
-            document.getElementById("response").innerText = feedback;
-            document.getElementById("score").innerText = `Excuse Score: ${score}`;
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
